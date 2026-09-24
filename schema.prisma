@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Pano {
+  id               Int        @id @default(autoincrement())
+  panoNo           String     @unique
+  panoAdi          String
+  makineHat        String?
+  projeNo          String?
+  aciklama         String?
+  qrKod            String     @unique
+  olusturmaTarihi  DateTime   @default(now())
+  guncellemeTarihi DateTime   @updatedAt
+
+  dokumanlar       Dokuman[]
+}
+
+model Dokuman {
+  id              Int       @id @default(autoincrement())
+  panoId          Int
+  dokumanAdi      String
+  dosyaAdi        String
+  dosyaYolu       String
+  revizyon        String?
+  aciklama        String?
+  aktif           Boolean   @default(true)
+  yuklemeTarihi   DateTime  @default(now())
+
+  pano            Pano     @relation(fields: [panoId], references: [id], onDelete: Cascade)
+}
+
+model Kullanici {
+  id               Int       @id @default(autoincrement())
+  kullaniciAdi     String    @unique
+  sifreHash        String
+  adSoyad          String?
+  aktif            Boolean   @default(true)
+  olusturmaTarihi  DateTime  @default(now())
+}
