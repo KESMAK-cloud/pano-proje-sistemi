@@ -48,4 +48,3 @@ next-env.d.ts
 *.db-journal
 
 # uploaded PDF files
-/public/uploads/
