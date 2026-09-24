@@ -1,4 +1,4 @@
-import { PrismaClient, Dokuman } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { notFound } from "next/navigation";
 
 const prisma = new PrismaClient();
@@ -118,7 +118,7 @@ export default async function PanoPage({
               </div>
             ) : (
               <div className="mt-5 space-y-4">
-                {pano.dokumanlar.map((dokuman: Dokuman) => (
+                {pano.dokumanlar.map((dokuman) => (
                   <div
                     key={dokuman.id}
                     className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
